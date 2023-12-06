@@ -2,11 +2,12 @@ import { Stack } from '@mui/material';
 import SubworkflowComponent from './workflow/main/Subworkflow';
 import StepComponent from './workflow/main/Step';
 import { StepType } from '../model/stepType';
-import ViewCallContent from './workflow/contol/call/ViewCallContent';
+import ViewCallContent from './workflow/control/call/ViewCallContent';
 import { HttpRequestMethod } from '../model/httpRequestMethod';
 import { CallType } from '../model/call';
 import { ReactNode } from 'react';
-import ViewJumpContent from './workflow/contol/jump/ViewJumpContent';
+import ViewJumpContent from './workflow/control/jump/ViewJumpContent';
+import ViewConditionContent from './workflow/control/condition/ViewConditionContent';
 
 const viewerStyle = {
   minWidth: '60%'
@@ -26,7 +27,8 @@ const ViewerPanel = () => {
               },
               result: 'response'
             }} />
-            <ViewJumpContent></ViewJumpContent>
+            <ViewJumpContent step="next_step"></ViewJumpContent>
+            <ViewConditionContent></ViewConditionContent>
           </Stack>
         </StepComponent>
       </SubworkflowComponent>

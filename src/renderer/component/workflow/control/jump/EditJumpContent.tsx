@@ -12,7 +12,7 @@ const EditJumpContent = () => {
 
   return (
     <Box>
-      <Typography variant="caption">Next step</Typography>
+      <Typography variant="caption">Jump</Typography>
       <Autocomplete options={options}
                     getOptionLabel={(option: string) => option}
                     style={inputFontSize}

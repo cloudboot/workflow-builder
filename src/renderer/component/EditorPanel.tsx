@@ -2,11 +2,12 @@ import { Stack } from '@mui/material';
 import SubworkflowComponent from './workflow/main/Subworkflow';
 import StepComponent from './workflow/main/Step';
 import { StepType } from '../model/stepType';
-import ViewCallContent from './workflow/contol/call/ViewCallContent';
+import ViewCallContent from './workflow/control/call/ViewCallContent';
 import { HttpRequestMethod } from '../model/httpRequestMethod';
 import { CallType } from '../model/call';
-import EditCallContent from './workflow/contol/call/EditCallContent';
-import EditJumpContent from './workflow/contol/jump/EditJumpContent';
+import EditCallContent from './workflow/control/call/EditCallContent';
+import EditJumpContent from './workflow/control/jump/EditJumpContent';
+import EditConditionContent from './workflow/control/condition/EditConditionContent';
 
 const viewerStyle = {
   minWidth: '21%'
@@ -17,6 +18,7 @@ const EditorPanel = () => {
     <Stack sx={viewerStyle}>
       <EditCallContent/>
       <EditJumpContent/>
+      <EditConditionContent/>
     </Stack>
   );
 };
