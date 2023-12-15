@@ -1,23 +1,34 @@
 import { Card, CardContent, Typography } from '@mui/material';
-import { IHttpRequestCallModel } from '../../../../model/call';
 import { FC } from 'react';
+import { IHttpRequestCallModel } from '../../../../model/call';
+import { viewCallCardStyle } from '../../styles';
+import {
+  IStepRenderModel,
+  IWorkflowRenderModel,
+} from '../../../../model/renderModel';
 
 interface ICallComponentProps {
-  data: IHttpRequestCallModel;
+  data: IStepRenderModel;
 }
 
+const ViewCallContent: FC<ICallComponentProps> = ({
+  data,
+}: ICallComponentProps) => {
+  const callData = data.content as IHttpRequestCallModel;
 
-const ViewCallContent: FC<ICallComponentProps> = (props: ICallComponentProps) => {
-  const {data} = props;
   return (
-    <Card>
+    <Card sx={viewCallCardStyle}>
       <CardContent>
-        <Typography variant="caption">{data.call}</Typography>
-        <Typography variant="body2">{data.args.method} {data.args.url}</Typography>
-        {data.result && <Typography variant="body2">result: {data.result}</Typography>}
+        <Typography variant="caption">{callData.call}</Typography>
+        <Typography variant="body2">
+          {callData.args.method} {callData.args.url}
+        </Typography>
+        {callData.result && (
+          <Typography variant="body2">result: {callData.result}</Typography>
+        )}
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
 export default ViewCallContent;

@@ -1,5 +1,6 @@
-import { Card, CardActionArea, CardContent, Divider, Typography } from '@mui/material';
-import { FC, PropsWithChildren, ReactNode } from 'react';
+import { Card, CardContent, Divider, Stack, Typography } from '@mui/material';
+import { FC, PropsWithChildren } from 'react';
+import { subworkflowCardStyle } from '../styles';
 
 interface IRuntimeArgument {
   key: string;
@@ -8,29 +9,39 @@ interface IRuntimeArgument {
 
 interface ISubworkflowProps {
   name: string;
-  args: IRuntimeArgument[];
+  params: IRuntimeArgument[];
 }
 
-const subworkflowCardStyle = {
-  width: "100%",
-  //boxShadow: "none"
-}
-
-const SubworkflowComponent: FC<PropsWithChildren<ISubworkflowProps>> = ({name, args, children}) => {
-
+const SubworkflowComponent: FC<PropsWithChildren<ISubworkflowProps>> = ({
+  name,
+  params,
+  children,
+}) => {
   return (
     <Card sx={subworkflowCardStyle}>
-        <CardContent>
-          <Typography variant="h6">{name}</Typography>
-          <Divider/>
-          <Typography variant="caption">arguments</Typography>
-          {args.map((arg, index) => {
-            return <Typography key={`arg${index}`} variant="body2">{arg.key}, default value: {arg.defaultValue}</Typography>
-          })}
-          {children}
-        </CardContent>
+      <CardContent>
+        <Stack spacing={2}>
+          <Stack spacing={2}>
+            <Stack>
+              <Typography variant="caption">workflow</Typography>
+              <Typography variant="h6">{name}</Typography>
+            </Stack>
+            <Stack>
+              <Typography variant="caption">arguments</Typography>
+              {params.map((arg, index) => {
+                return (
+                  <Typography key={`arg${index}`} variant="body2">
+                    {arg.key}, default: {arg.defaultValue}
+                  </Typography>
+                );
+              })}
+            </Stack>
+          </Stack>
+          <Stack alignItems="center">{children}</Stack>
+        </Stack>
+      </CardContent>
     </Card>
-  )
-}
+  );
+};
 
 export default SubworkflowComponent;

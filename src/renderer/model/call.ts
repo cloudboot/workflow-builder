@@ -1,13 +1,13 @@
-import { HttpRequestMethod } from './httpRequestMethod';
+import HttpRequestMethod from './httpRequestMethod';
 import { IKeyValuePair } from './common';
 
 export enum CallType {
-  HttpRequest = "http.request"
+  HttpRequest = 'http.request',
 }
 
 export interface IHttpRequestCallModel {
   call: CallType;
-  args : {
+  args: {
     url: string;
     method: HttpRequestMethod;
     private_service_name?: string;

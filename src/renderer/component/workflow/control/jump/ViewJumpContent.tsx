@@ -1,19 +1,24 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import { FC } from 'react';
+import { viewJumpCardStyle } from '../../styles';
+import { IStepRenderModel } from '../../../../model/renderModel';
 
-interface ViewJumpContentProps {
-  step: string;
+interface IViewJumpContentProps {
+  data: IStepRenderModel;
 }
 
-const ViewJumpContent: FC<ViewJumpContentProps> = ({step}) => {
+const ViewJumpContent: FC<IViewJumpContentProps> = ({
+  data,
+}: IViewJumpContentProps) => {
+  const jumpData = data.content;
   return (
-    <Card>
+    <Card sx={viewJumpCardStyle}>
       <CardContent>
         <Typography variant="caption">Jump</Typography>
-        <Typography variant="body2">Next step: {step}</Typography>
+        <Typography variant="body2">Next step: {jumpData}</Typography>
       </CardContent>
     </Card>
-  )
+  );
 };
 
 export default ViewJumpContent;

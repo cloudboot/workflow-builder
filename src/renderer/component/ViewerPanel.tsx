@@ -1,39 +1,49 @@
 import { Stack } from '@mui/material';
+import { useEffect, useState } from 'react';
 import SubworkflowComponent from './workflow/main/Subworkflow';
-import StepComponent from './workflow/main/Step';
-import { StepType } from '../model/stepType';
-import ViewCallContent from './workflow/control/call/ViewCallContent';
-import { HttpRequestMethod } from '../model/httpRequestMethod';
-import { CallType } from '../model/call';
-import { ReactNode } from 'react';
-import ViewJumpContent from './workflow/control/jump/ViewJumpContent';
-import ViewConditionContent from './workflow/control/condition/ViewConditionContent';
+import { viewerPanelStyle } from './styles';
+import { IDictionary } from '../model/common';
+import { IWorkflowRenderModel } from '../model/renderModel';
+import { rootStore } from '../store/rootStore';
+import { workflowsRenderModel } from '../utility/mapper';
+import ControlComponentRenderer from './workflow/control/ControlComponentRenderer';
 
-const viewerStyle = {
-  minWidth: '60%'
-};
+function ViewerPanel() {
+  const [configTree, setConfigTree] = useState(
+    {} as IDictionary<IWorkflowRenderModel>,
+  );
 
-const ViewerPanel = () => {
+  useEffect(() => {
+    setConfigTree(workflowsRenderModel());
+  }, []);
+
+  rootStore.subscribe(() => {
+    setConfigTree(workflowsRenderModel());
+  });
+
   return (
-    <Stack sx={viewerStyle}>
-      <SubworkflowComponent name='main' args={[{ key: 'foo', defaultValue: 'bar' }]}>
-        <StepComponent name='call_reservation_ep' type={StepType.InvokeHttpEndpoint}>
-          <Stack direction="column" spacing={1}>
-            <ViewCallContent data={{
-              call: CallType.HttpRequest,
-              args: {
-                url: "https://localhost:8080",
-                method: HttpRequestMethod.Get
-              },
-              result: 'response'
-            }} />
-            <ViewJumpContent step="next_step"></ViewJumpContent>
-            <ViewConditionContent></ViewConditionContent>
-          </Stack>
-        </StepComponent>
-      </SubworkflowComponent>
+    <Stack sx={viewerPanelStyle}>
+      {Object.values(configTree).map((workflow) => {
+        return (
+          <SubworkflowComponent
+            key={workflow.id}
+            name={workflow.name}
+            params={workflow.params}
+          >
+            {workflow.steps.map((step) => {
+              return (
+                <ControlComponentRenderer
+                  key={step.id}
+                  type={step.type}
+                  data={step}
+                />
+              );
+            })}
+          </SubworkflowComponent>
+        );
+      })}
     </Stack>
   );
-};
+}
 
 export default ViewerPanel;
