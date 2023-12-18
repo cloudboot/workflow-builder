@@ -28,7 +28,7 @@ const EditJumpContent = () => {
           const inputProps = { ...params.InputProps, style: inputFontSize };
           return (
             <TextField
-              {...(params as unknown as ReactNode)}
+              {...params}
               InputProps={inputProps}
             />
           );

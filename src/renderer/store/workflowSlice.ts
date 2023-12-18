@@ -9,16 +9,17 @@ export const workflowSlice = createSlice({
   name: 'workflow',
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<string>) => {
+    setCurrentWorkflowId: (state, action: PayloadAction<string>) => {
       state.id = action.payload;
     },
-    unset: (state) => {
+    unsetCurrentWorkflowId: (state) => {
       state.id = undefined;
     },
   },
 });
 
-export const { set, unset } = workflowSlice.actions;
+export const { setCurrentWorkflowId, unsetCurrentWorkflowId } =
+  workflowSlice.actions;
 
 const workflowReducer = workflowSlice.reducer;
 export default workflowReducer;

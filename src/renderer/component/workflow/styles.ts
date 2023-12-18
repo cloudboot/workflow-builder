@@ -1,6 +1,8 @@
-const stepColor = '#eaffe7';
+const selectColor = '#9fb4ff';
+const defaultColor = '#b0b0b0';
 const cardBorderRadius = 5;
-const cardShadowLevel = '3';
+const cardShadowLevel = `1px 1px 1px 1px ${defaultColor}`;
+const cardShadowLevelSelected = `1px 1px 1px 2px ${selectColor}`;
 
 export const infoFontStyle = {
   fontSize: '12px',
@@ -18,13 +20,16 @@ export const buttonIconSize = {
   fontSize: '13px',
 };
 
-export const subworkflowCardStyle = {
-  width: '90%',
-  // background: '#d4fcec',
-  borderRadius: cardBorderRadius,
-  alignContent: 'center',
-  alignItems: 'center',
-  boxShadow: cardShadowLevel,
+export const subworkflowCardStyle = (selected: boolean) => {
+  return {
+    width: '90%',
+    // background: '#d4fcec',
+    borderRadius: cardBorderRadius,
+    alignContent: 'center',
+    alignItems: 'center',
+    boxShadow: selected ? cardShadowLevelSelected : cardShadowLevel,
+    cursor: 'pointer',
+  };
 };
 
 export const stepCardStyle = {

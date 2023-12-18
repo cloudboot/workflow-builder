@@ -20,25 +20,36 @@ export const workflowsSlice = createSlice({
   name: 'workflows',
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<IWorkflowStateModel>) => {
+    addWorkflow: (state, action: PayloadAction<IWorkflowStateModel>) => {
       state[action.payload.id] = action.payload;
     },
-    pushStep: (state, action: PayloadAction<IWorkflowStepStateModel>) => {
+    addStepToWorkflow: (
+      state,
+      action: PayloadAction<IWorkflowStepStateModel>,
+    ) => {
       state[action.payload.workflowId].steps.push(action.payload.stepId);
     },
-    removeStep: (state, action: PayloadAction<IWorkflowStepStateModel>) => {
+    deleteStepFromWorkflow: (
+      state,
+      action: PayloadAction<IWorkflowStepStateModel>,
+    ) => {
       state[action.payload.workflowId].steps.splice(
         state[action.payload.workflowId].steps.indexOf(action.payload.stepId),
         1,
       );
     },
-    remove: (state, action: PayloadAction<string>) => {
+    deleteWorkflow: (state, action: PayloadAction<string>) => {
       delete state[action.payload];
     },
   },
 });
 
-export const { set, pushStep, removeStep, remove } = workflowsSlice.actions;
+export const {
+  addWorkflow,
+  addStepToWorkflow,
+  deleteStepFromWorkflow,
+  deleteWorkflow,
+} = workflowsSlice.actions;
 
 const workflowsReducer = workflowsSlice.reducer;
 export default workflowsReducer;

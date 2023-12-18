@@ -2,10 +2,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 import { FC } from 'react';
 import { IHttpRequestCallModel } from '../../../../model/call';
 import { viewCallCardStyle } from '../../styles';
-import {
-  IStepRenderModel,
-  IWorkflowRenderModel,
-} from '../../../../model/renderModel';
+import { IStepRenderModel } from '../../../../model/renderModel';
 
 interface ICallComponentProps {
   data: IStepRenderModel;

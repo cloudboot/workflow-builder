@@ -8,16 +8,16 @@ export const stepsSlice = createSlice({
   name: 'steps',
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<IStepStateModel>) => {
+    addStep: (state, action: PayloadAction<IStepStateModel>) => {
       state[action.payload.id] = action.payload;
     },
-    remove: (state, action: PayloadAction<string>) => {
+    deleteStep: (state, action: PayloadAction<string>) => {
       delete state[action.payload];
     },
   },
 });
 
-export const { set, remove } = stepsSlice.actions;
+export const { addStep, deleteStep } = stepsSlice.actions;
 
 const stepsReducer = stepsSlice.reducer;
 export default stepsReducer;

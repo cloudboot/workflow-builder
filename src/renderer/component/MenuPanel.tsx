@@ -2,8 +2,6 @@ import { Button, Divider, Stack, Tooltip, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { selectCurrentWorkflowId } from '../store/selector';
 import { rootStore } from '../store/rootStore';
-import ControlMenuTooltipRenderer from './tooltip/ControlMenuTooltipRenderer';
-import StepType from '../model/StepType';
 import { toolbarButtonStyle } from './styles';
 import ControlMenuButtons from './menu/ControlMenuButtons';
 

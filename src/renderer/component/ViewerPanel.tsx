@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
-import SubworkflowComponent from './workflow/main/Subworkflow';
+import ViewSubworkflowContent from './workflow/main/ViewSubworkflowContent';
 import { viewerPanelStyle } from './styles';
 import { IDictionary } from '../model/common';
 import { IWorkflowRenderModel } from '../model/renderModel';
@@ -25,11 +25,7 @@ function ViewerPanel() {
     <Stack sx={viewerPanelStyle}>
       {Object.values(configTree).map((workflow) => {
         return (
-          <SubworkflowComponent
-            key={workflow.id}
-            name={workflow.name}
-            params={workflow.params}
-          >
+          <ViewSubworkflowContent key={workflow.id} data={workflow}>
             {workflow.steps.map((step) => {
               return (
                 <ControlComponentRenderer
@@ -39,7 +35,7 @@ function ViewerPanel() {
                 />
               );
             })}
-          </SubworkflowComponent>
+          </ViewSubworkflowContent>
         );
       })}
     </Stack>

@@ -22,8 +22,8 @@ function EditConditionContent() {
   const [condition, setCondition] = useState({});
   const [conditions, setConditions] = useState([] as ICondition[]);
 
-  const pushCondition = (condition: ICondition) => {
-    setConditions([...conditions, condition]);
+  const pushCondition = (_condition: ICondition) => {
+    setConditions([...conditions, _condition]);
   };
 
   return (
