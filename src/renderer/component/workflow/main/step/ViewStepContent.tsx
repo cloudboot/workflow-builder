@@ -6,8 +6,8 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, PropsWithChildren } from 'react';
-import StepType from '../../../model/StepType';
-import { stepCardStyle } from '../styles';
+import StepType from '../../../../model/StepType';
+import { stepCardStyle } from '../../styles';
 
 interface IStepComponentProps {
   name: string;

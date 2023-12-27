@@ -13,7 +13,7 @@ interface IControlComponentRendererProps {
   data: IStepRenderModel;
 }
 
-const ControlComponentRenderer: FC<IControlComponentRendererProps> = (
+const ViewControlComponentRenderer: FC<IControlComponentRendererProps> = (
   props: IControlComponentRendererProps,
 ) => {
   const { type, data } = props;
@@ -34,4 +34,4 @@ const ControlComponentRenderer: FC<IControlComponentRendererProps> = (
   }
 };
 
-export default ControlComponentRenderer;
+export default ViewControlComponentRenderer;

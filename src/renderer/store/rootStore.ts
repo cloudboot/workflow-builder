@@ -4,6 +4,7 @@ import stepsReducer from './stepsSlice';
 import stepReducer from './stepSlice';
 import workflowReducer from './workflowSlice';
 import editorPanelCursorReducer from './editorPanelCursorSlice';
+import variablesReducer from './variablesSlice';
 
 export const rootStore = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const rootStore = configureStore({
     workflow: workflowReducer,
     workflows: workflowsReducer,
     editorPanelCursor: editorPanelCursorReducer,
+    variables: variablesReducer,
   },
 });
 

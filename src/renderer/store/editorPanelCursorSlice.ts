@@ -13,20 +13,23 @@ export const editorPanelCursorSlice = createSlice({
       state,
       action: PayloadAction<IEditorPanelCursorStateModel>,
     ) => {
-      state.id = action.payload.id;
-      state.type = action.payload.type;
-      state.subType = action.payload.subType;
+      return {
+        visible: true,
+        id: action.payload.id,
+        type: action.payload.type,
+        subType: action.payload.subType,
+        data: action.payload.data,
+      };
     },
     unsetEditorPanelCursor: (state) => {
-      state.id = undefined;
-      state.type = undefined;
-      state.subType = undefined;
-      state.visible = false;
+      return {
+        visible: false,
+      };
     },
   },
 });
 
-const { setEditorPanelCursor, unsetEditorPanelCursor } =
+export const { setEditorPanelCursor, unsetEditorPanelCursor } =
   editorPanelCursorSlice.actions;
 
 const editorPanelCursorReducer = editorPanelCursorSlice.reducer;

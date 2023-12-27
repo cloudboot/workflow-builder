@@ -2,6 +2,8 @@ import StepType from './StepType';
 import WorkflowType from './WorkflowType';
 import WorkflowComponentType from './WorkflowComponentType';
 import { IKeyValuePair } from './common';
+import { IVariable } from './variable';
+import { IRenderModel } from './renderModel';
 
 export interface IStepPartialStateModel {
   id: string | undefined;
@@ -36,4 +38,14 @@ export interface IEditorPanelCursorStateModel {
   type?: WorkflowComponentType;
   subType?: StepType | WorkflowType;
   visible: boolean;
+  data?: IRenderModel;
+}
+
+export interface IVariablesStoreModel {
+  [key: string]: IVariable[];
+}
+
+export interface IVariableSelectorModel {
+  id: string;
+  ownerId: string;
 }

@@ -1,7 +1,7 @@
-import { Card, CardContent, Stack, Typography } from "@mui/material";
-import { ICondition } from "../../../../model/condition";
-import { IStepRenderModel } from "../../../../model/renderModel";
-import { viewConditionCardStyle } from "../../styles";
+import { Card, CardContent, Stack, Typography } from '@mui/material';
+import { ICondition } from '../../../../model/condition';
+import { IStepRenderModel } from '../../../../model/renderModel';
+import { viewConditionCardStyle } from '../../styles';
 
 interface IConditionProps {
   data: IStepRenderModel;
