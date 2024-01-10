@@ -1,17 +1,12 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import { FC } from 'react';
-import { IHttpRequestCallModel } from '../../../../model/call';
+import { ICallContentProps } from '../../../../model/call';
 import { viewCallCardStyle } from '../../styles';
-import { IStepRenderModel } from '../../../../model/renderModel';
 
-interface ICallComponentProps {
-  data: IStepRenderModel;
-}
-
-const ViewCallContent: FC<ICallComponentProps> = ({
+const ViewCallContent: FC<ICallContentProps> = ({
   data,
-}: ICallComponentProps) => {
-  const callData = data.content as IHttpRequestCallModel;
+}: ICallContentProps) => {
+  const callData = data.content;
 
   return (
     <Card sx={viewCallCardStyle}>

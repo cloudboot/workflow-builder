@@ -1,7 +1,7 @@
 import { IconButton, Stack, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
-const EditIterationContent = () => {
+const EditIterationContent = ({data}: any) => {
   return (
     <Stack>
       <TextField id="iteration-step-name" label="Step name" />

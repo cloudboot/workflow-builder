@@ -15,10 +15,9 @@ import { Add, Delete, Edit } from '@mui/icons-material';
 import { FC, PropsWithChildren, useState } from 'react';
 import { buttonIconSize, inputFontSize, inputFontStyle } from '../../styles';
 import { ICondition } from '../../../../model/condition';
+import ConditionType from "../../../../model/ConditionType";
 
-const conditionTypes = ['Return', 'Next', 'Raise', 'Call'];
-
-function EditConditionContent() {
+function EditConditionContent({data}: any) {
   const [condition, setCondition] = useState({});
   const [conditions, setConditions] = useState([] as ICondition[]);
 
@@ -33,6 +32,7 @@ function EditConditionContent() {
         <Stack spacing={3}>
           {conditions.map((element, index) => {
             return (
+              // eslint-disable-next-line react/no-array-index-key
               <Stack key={`condition-${index}`} spacing={2}>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <Typography variant="body2">{index + 1}</Typography>
@@ -58,7 +58,7 @@ function EditConditionContent() {
                       value={element.type}
                       sx={inputFontSize}
                     >
-                      {conditionTypes.map((_type) => {
+                      {Object.values(ConditionType).map((_type) => {
                         return (
                           <MenuItem
                             key={`condition-option-${_type}`}

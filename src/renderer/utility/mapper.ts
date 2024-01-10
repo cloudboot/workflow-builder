@@ -1,8 +1,8 @@
 import { IWorkflowStateModel } from '../model/storeModel';
 import { IWorkflowRenderModel } from '../model/renderModel';
-import { selectStep, selectWorkflows } from "../store/selector";
+import { selectStep, selectWorkflows } from '../store/selector';
 import { rootStore } from '../store/rootStore';
-import { IDictionary } from "../model/common";
+import { IDictionary } from '../model/common';
 
 export const workflowStoreModelToRenderModel = (
   workflowStoreModel: IWorkflowStateModel,

@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useState } from 'react';
+import { FC, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@mui/material';
 import { Add, Delete, Edit } from '@mui/icons-material';
-import { CallType, IHttpRequestCallModel } from '../../../../model/call';
 import {
   buttonIconSize,
   infoFontStyle,
@@ -18,18 +17,11 @@ import {
   inputFontStyle,
 } from '../../styles';
 import HttpRequestMethod from '../../../../model/httpRequestMethod';
+import { ICallContentProps } from '../../../../model/call';
 
-const EditCallContent: FC<PropsWithChildren> = () => {
-  const data: IHttpRequestCallModel = {
-    call: CallType.HttpRequest,
-    args: {
-      url: 'google.com',
-      headers: [{ key: 'content-type', value: 'application/json' }],
-      query: [],
-      method: HttpRequestMethod.Get,
-    },
-  };
-
+const EditCallContent: FC<ICallContentProps> = ({
+  data,
+}: ICallContentProps) => {
   const [addHeaderPrompt, setAddHeaderPrompt] = useState(false);
   const [addQueryPrompt, setAddQueryPrompt] = useState(false);
   const [addBodyPrompt, setAddBodyPrompt] = useState(false);
@@ -99,7 +91,7 @@ const EditCallContent: FC<PropsWithChildren> = () => {
       <Box>
         <Stack spacing={1}>
           <Typography variant="caption">Headers</Typography>
-          {data.args.headers?.map((header) => {
+          {data.content.args.headers?.map((header) => {
             return (
               <Stack
                 key={`header-${header.key}`}
@@ -164,7 +156,7 @@ const EditCallContent: FC<PropsWithChildren> = () => {
       <Box>
         <Stack spacing={1}>
           <Typography variant="caption">Query Parameters</Typography>
-          {data.args.query?.map((header) => {
+          {data.content.args.query?.map((header) => {
             return (
               <Stack
                 key={`query-${header.key}`}

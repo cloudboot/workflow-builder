@@ -1,19 +1,16 @@
 import {
-  Autocomplete,
-  AutocompleteRenderInputParams,
   Button,
+  Divider,
+  IconButton,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
 import React, { FC, useEffect, useState, KeyboardEvent } from 'react';
-import { Add } from '@mui/icons-material';
-import { inputFontSize, inputFontStyle } from '../../styles';
+import { Add, Delete } from '@mui/icons-material';
+import { inputFontStyle, xsSvg } from '../../styles';
 import { IWorkflowRenderModel } from '../../../../model/renderModel';
 import { IKeyValuePair } from '../../../../model/common';
-import { selectVariables } from '../../../../store/selector';
-import { rootStore } from '../../../../store/rootStore';
-import { IVariable } from '../../../../model/variable';
 
 interface IEditSubworkflowProps {
   data: IWorkflowRenderModel;
@@ -22,100 +19,113 @@ interface IEditSubworkflowProps {
 const EditSubworkflowContent: FC<IEditSubworkflowProps> = ({
   data,
 }: IEditSubworkflowProps) => {
-  const [name, setName] = useState('');
+  const [workflowName, setWorkflowName] = useState('');
   const [params, setParams] = useState([] as IKeyValuePair[]);
   const [newParam, setNewParam] = useState({} as IKeyValuePair);
   const [newParamPrompt, setNewParamPrompt] = useState(false);
-  const [paramOptions, setParamOptions] = useState([] as IVariable[]);
 
   useEffect(() => {
-    setParamOptions(selectVariables(rootStore.getState(), data.id));
-  }, [data.id]);
+    setParams(data.params);
+    setWorkflowName(data.name);
+  }, [data.params, data.name]);
 
   const addNewParam = (_param: IKeyValuePair) => {
     setNewParam(_param);
     setNewParamPrompt(true);
   };
 
+  const removeParam = (param: IKeyValuePair) => {
+    setParams(params.filter((elem) => elem.key !== param.key));
+  };
+
   const applyNewParam = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      setParams([...params, newParam]);
+      if (newParam.key && !params.some((elem) => elem.key === newParam.key)) {
+        setParams([...params, newParam]);
+      }
       setNewParamPrompt(false);
     }
   };
 
   return (
-    <Stack>
+    <Stack spacing={3}>
       <TextField
-        label="Name"
         size="small"
+        label="Workflow name"
         InputProps={inputFontStyle}
         InputLabelProps={inputFontStyle}
-        value={data.name}
-        onChange={(ev) => setName(ev.target.value)}
+        value={workflowName}
+        onChange={(ev) => setWorkflowName(ev.target.value)}
       />
-      {params.map((param, index) => {
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <Stack direction="row" key={`workflow-param${index}`} spacing={1}>
-            <Typography variant="caption">param</Typography>
-            <Typography variant="body2">{param.key}</Typography>
-            <Typography variant="caption">default</Typography>
-            <Typography variant="body2">
-              {param.value ? param.value : '-'}
-            </Typography>
-          </Stack>
-        );
-      })}
-      {newParamPrompt ? (
-        <Stack>
-          <Autocomplete
-            options={paramOptions.map((elem) => elem.key)}
-            getOptionLabel={(option: string) => option}
-            style={inputFontSize}
-            renderInput={(_params: AutocompleteRenderInputParams) => {
-              const inputProps = {
-                ..._params.InputProps,
-                style: inputFontSize,
-              };
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              return <TextField {..._params} InputProps={inputProps} />;
-            }}
-            renderOption={(props, option: string) => {
-              return (
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                <li {...props}>
-                  <Typography style={inputFontSize}>{option}</Typography>
-                </li>
-              );
-            }}
-            inputValue={newParam.key}
-            onInputChange={(ev, val) => setNewParam({ ...newParam, key: val })}
-            size="small"
-            freeSolo
-          />
-          <TextField
-            size="small"
-            label="Default value"
-            InputProps={inputFontStyle}
-            InputLabelProps={inputFontStyle}
-            value={newParam.value}
-            onChange={(ev) =>
-              setNewParam({ ...newParam, value: ev.target.value })
-            }
-            onKeyDown={applyNewParam}
-          />
+
+      <Stack spacing={1}>
+        <Stack direction="column">
+          <Typography variant="caption">Params</Typography>
+          <Divider />
         </Stack>
-      ) : (
-        <Button
-          size="small"
-          aria-label="Add param"
-          startIcon={<Add />}
-          onClick={() => {
-            addNewParam({ key: '', value: '' });
-          }}
-        />
-      )}
+        {params.map((param, index) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Stack
+              direction="row"
+              key={`workflow-param${index}`}
+              spacing={2}
+              alignContent="center"
+            >
+              <Stack>
+                <Typography variant="caption">param</Typography>
+                <Typography variant="body2">{param.key}</Typography>
+              </Stack>
+              <Stack>
+                <Typography variant="caption">default</Typography>
+                <Typography variant="body2">
+                  {param.value ? param.value : 'n/a'}
+                </Typography>
+              </Stack>
+              <Stack>
+                <IconButton onClick={() => removeParam(param)}>
+                  <Delete sx={xsSvg} color="error" />
+                </IconButton>
+              </Stack>
+            </Stack>
+          );
+        })}
+        {newParamPrompt ? (
+          <Stack direction="column" spacing={1}>
+            <TextField
+              size="small"
+              label="Param name"
+              InputProps={inputFontStyle}
+              InputLabelProps={inputFontStyle}
+              value={newParam.key}
+              onChange={(ev) =>
+                setNewParam({ ...newParam, key: ev.target.value })
+              }
+              onKeyDown={applyNewParam}
+            />
+            <TextField
+              size="small"
+              label="Default value"
+              InputProps={inputFontStyle}
+              InputLabelProps={inputFontStyle}
+              value={newParam.value}
+              onChange={(ev) =>
+                setNewParam({ ...newParam, value: ev.target.value })
+              }
+              onKeyDown={applyNewParam}
+            />
+          </Stack>
+        ) : (
+          <Button
+            size="small"
+            aria-label="Add param"
+            startIcon={<Add />}
+            onClick={() => {
+              addNewParam({ key: '', value: '' });
+            }}
+          />
+        )}
+      </Stack>
     </Stack>
   );
 };

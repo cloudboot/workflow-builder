@@ -5,7 +5,9 @@ import {
 } from '../model/storeModel';
 import { IVariable } from '../model/variable';
 
-const initialState: IVariablesStoreModel = {};
+const initialState: IVariablesStoreModel = {
+  'workflow-main': [],
+};
 
 export const variablesSlice = createSlice({
   name: 'variables',
@@ -13,7 +15,7 @@ export const variablesSlice = createSlice({
   reducers: {
     addVariable: (state, action: PayloadAction<IVariable>) => {
       if (!state[action.payload.ownerId]) {
-        state[action.payload.ownerId] = []
+        state[action.payload.ownerId] = [];
       }
       state[action.payload.ownerId].push(action.payload);
     },

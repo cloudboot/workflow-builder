@@ -8,7 +8,6 @@ export interface IStepRenderModel extends IRenderModel {
   id: string;
   type: StepType;
   name: string;
-  content: any;
 }
 
 export interface IWorkflowRenderModel extends IRenderModel {

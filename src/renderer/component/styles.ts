@@ -5,6 +5,7 @@ export const viewerPanelStyle = {
 };
 
 export const editorPanelStyle = {
+  paddingTop: '10px',
   minWidth: '21%',
 };
 

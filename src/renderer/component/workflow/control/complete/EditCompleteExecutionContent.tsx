@@ -7,17 +7,23 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { inputFontSize } from '../../styles';
+import { ICompleteExecContentProps } from '../../../../model/completeExec';
 
-const EditCompleteExecutionContent = () => {
+const execTypes = [
+  { type: 'next', displayText: 'End execution' },
+  { type: 'return', displayText: 'Return value' },
+];
+
+const EditCompleteExecutionContent = ({ data }: ICompleteExecContentProps) => {
   const [selectedOption, setSelectedOption] = useState('next');
   const [returnValue, setReturnValue] = useState('');
 
-  const execTypes = [
-    { type: 'next', displayText: 'End execution' },
-    { type: 'return', displayText: 'Return value' },
-  ];
+  useEffect(() => {
+    setSelectedOption(data.content.execType);
+    setReturnValue(data.content.execValue);
+  }, [data.content.execType, data.content.execValue]);
 
   return (
     <Stack>
@@ -48,7 +54,12 @@ const EditCompleteExecutionContent = () => {
       </FormControl>
       {selectedOption === 'return' && (
         <Box component="form">
-          <TextField id="return-value" label="Variable" size="small" />
+          <TextField
+            id="return-value"
+            label="Variable"
+            size="small"
+            value={returnValue}
+          />
         </Box>
       )}
     </Stack>

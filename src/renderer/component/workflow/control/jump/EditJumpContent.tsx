@@ -14,7 +14,7 @@ const inputFontSize = {
 
 const options = ['foo', 'bar'];
 
-const EditJumpContent = () => {
+const EditJumpContent = ({data}: any) => {
   const [inputValue, setInputValue] = useState('');
 
   return (

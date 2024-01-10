@@ -4,6 +4,10 @@ const cardBorderRadius = 5;
 const cardShadowLevel = `1px 1px 1px 1px ${defaultColor}`;
 const cardShadowLevelSelected = `1px 1px 1px 2px ${selectColor}`;
 
+export const xsSvg = {
+  fontSize: '16px',
+};
+
 export const infoFontStyle = {
   fontSize: '12px',
 };

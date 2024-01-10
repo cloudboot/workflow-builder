@@ -38,6 +38,7 @@ const ViewSubworkflowContent: FC<PropsWithChildren<IViewSubworkflowProps>> = ({
         subType: WorkflowType.SubWorkflow,
         type: WorkflowComponentType.Workflow,
         visible: true,
+        data,
       }),
     );
   };

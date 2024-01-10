@@ -1,14 +1,11 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import { viewCompleteExecCardStyle } from '../../styles';
-import { ICompleteExec } from '../../../../model/completeExec';
-import { IStepRenderModel } from '../../../../model/renderModel';
+import {
+  ICompleteExecContentProps,
+} from '../../../../model/completeExec';
 
-interface ICompleteExecProps {
-  data: IStepRenderModel;
-}
-
-function ViewCompleteExecutionContent({ data }: ICompleteExecProps) {
-  const completeExecData = data.content as ICompleteExec;
+function ViewCompleteExecutionContent({ data }: ICompleteExecContentProps) {
+  const completeExecData = data.content;
 
   return (
     <Card sx={viewCompleteExecCardStyle}>

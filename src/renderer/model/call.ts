@@ -1,5 +1,6 @@
 import HttpRequestMethod from './httpRequestMethod';
 import { IKeyValuePair } from './common';
+import { IStepRenderModel } from "./renderModel";
 
 export enum CallType {
   HttpRequest = 'http.request',
@@ -23,4 +24,12 @@ export interface IHttpRequestCallModel {
     timeout?: number;
   };
   result?: any;
+}
+
+export interface ICallContentRenderModel extends IStepRenderModel {
+  content: IHttpRequestCallModel;
+}
+
+export interface ICallContentProps {
+  data: ICallContentRenderModel;
 }
